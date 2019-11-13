@@ -31,8 +31,6 @@ yes
 
 ### Solution
 ```java
-package weblab;
-
 import java.io.*;
 import java.util.*;
 
