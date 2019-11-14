@@ -128,8 +128,6 @@ class Solution {
      
 ### Gotta go fast Solution:
 ```java
-package weblab;
-
 import java.io.*;
 import java.util.*;
 
@@ -193,12 +191,12 @@ class Solution {
     dist[s] = 0;
     while(!pq.isEmpty()) {
       int u = pq.remove().start;
-      if(!settled.contains(u)) settled.add(u);
       if(u==t) return dist[u].toString();
-      for (Map.Entry<Integer, Integer> i : nodes.get(u).entrySet()) {
-          if(dist[u] + i.getValue() + nodes.get(u).size() < dist[i.getKey()]) {
-            dist[i.getKey()] = dist[u] + i.getValue() + nodes.get(u).size();
-            pq.add(new Node(i.getKey(), dist[i.getKey()])); 
+      if(!settled.contains(u)) settled.add(u);
+      for (Map.Entry<Integer, Integer> en : nodes.get(u).entrySet()) {
+          if(dist[u] + en.getValue() + nodes.get(u).size() < dist[en.getKey()]) {
+            dist[en.getKey()] = dist[u] + en.getValue() + nodes.get(u).size();
+            pq.add(new Node(en.getKey(), dist[en.getKey()])); 
           }
         }
       }
