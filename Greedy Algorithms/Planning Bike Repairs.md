@@ -25,6 +25,41 @@ Example output:
 
 ### Solution:
 ```java
+import java.io.*;
+import java.util.*;
+
+class Solution {
+
+  // Implement the solve method to return the answer to the problem posed by the inputstream.
+  public static String run(InputStream in) {
+    return new Solution().solve(in);
+  }
+
+  public String solve(InputStream in) {
+   Scanner sc = new Scanner(in);
+    int n = sc.nextInt();
+    
+    int[] start= new int[n], repair = new int[n];
+    int maxlength = 0;
+    for(int i =0; i < n; i++) {
+      start[i] = sc.nextInt();
+      repair[i] = sc.nextInt();
+      if(maxlength < start[i] + repair[i]) maxlength = start[i] + repair[i];
+    }
+    sc.close();
+    int[] endtimes = new int[maxlength+1];
+    for(int i = 0; i < n; i++) {
+        for(int j=start[i]; j < start[i] + repair[i]; j++) {
+            endtimes[j]++;
+        }
+    }
+    Arrays.sort(endtimes);
+    return Integer.toString(endtimes[maxlength]);
+  
+  }
+}
+ 
+
 
 
 
