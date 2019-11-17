@@ -7,7 +7,6 @@ We have already provided several classes that might be useful for you in the Lib
 You cannot edit these classes, but you can use them in your implementation.
 
 ### Library:
-<details><summary>Library</summary>
 ```java
 package weblab;
 
@@ -106,7 +105,6 @@ public class UTest {
   }
 }
 ```
-</details>
 
 ### Template:
 ```java
