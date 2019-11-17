@@ -1,3 +1,5 @@
+### Exploring a maze (1/5)
+
 Implement the search method which takes a BinaryTree and Integer as input and tries to find the specified element in the tree.
 
 This search has to be done in a depth first manner, without using additional data structures.
