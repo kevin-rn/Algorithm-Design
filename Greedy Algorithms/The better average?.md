@@ -24,10 +24,8 @@ Solution (using Quicksort):
 class Solution {
 
 public static double solve(int n, double[] list) {
-    boolean median = false;
-    if(n % 2 == 0) median = true;
     sort(list, 0, n-1);
-    if(median) return (list[(n/2) - 1] + list[n/2])/2;
+    if(n % 2 == 0) return (list[(n/2) - 1] + list[n/2])/2;
     return list[(n/2)];
   }
   
