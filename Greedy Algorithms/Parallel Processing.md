@@ -14,8 +14,6 @@ your algorithm should return the minimized maximum lateness, in this case:
 
 ### Template:
 ```java
-package weblab;
-
 import java.util.*;
 
 class Solution {
@@ -53,8 +51,6 @@ ________________________________________________________________________________
 
 ### Solution:
 ```java
-package weblab;
-
 import java.util.*;
 
 class Solution {
