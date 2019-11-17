@@ -5,13 +5,12 @@ Description
 Implement the findMin method, this method should use divide and conquer to find the value x for which the difference between two discrete functions is minimal.
 
 Take for example the linear equation f(x)=8x−240
-and g(x)=6x−156, these two lines will intersect each other in the point (42,96)
-
-, so the result of this algorithm should be 42.
+and g(x)=6x−156, these two lines will intersect each other in the point (42,96), so the result of this algorithm should be 42.
 
 Take note that we are using discrete quadratic functions
-Public Library classes
 
+
+Public Library classes  
 We have already provided several classes that might be useful for you in the Library tab.
 You cannot edit these classes, but you can use them in your implementation.
 
