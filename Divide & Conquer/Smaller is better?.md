@@ -1,7 +1,5 @@
 ### Smaller is better?
 
-Description
-
 Implement the findMin method, this method should use divide and conquer to find the value x for which the difference between two discrete functions is minimal.
 
 Take for example the linear equation f(x)=8x−240
