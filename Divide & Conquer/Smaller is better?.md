@@ -1,4 +1,4 @@
-### Smaller is better?
+### Smaller is better? (3/5)
 
 Implement the findMin method, this method should use divide and conquer to find the value x for which the difference between two discrete functions is minimal.
 
