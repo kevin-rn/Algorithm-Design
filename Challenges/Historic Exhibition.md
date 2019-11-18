@@ -156,8 +156,8 @@ public class UTest {
   }
 
   private static boolean verifyAns(ByteArrayInputStream byteArrayInputStream, String ans, String out) {
-    Scanner team = new Scanner(ans);
-    Scanner ours = new Scanner(out);
+    Scanner team = new Scanner(out);
+    Scanner ours = new Scanner(ans);
     Scanner input = new Scanner(new BufferedReader(new InputStreamReader(byteArrayInputStream)));
     if (!team.hasNext() && !ours.hasNext()) {
       return true;
@@ -195,7 +195,48 @@ public class UTest {
   }
 
   private static final int timeout = 1000;
+
+  @Test
+  public void specTests() {
+    runTestWithFile("1000_1000_400");
+    runTestWithFile("100_100_20");
+    runTestWithFile("100_60_60");
+    runTestWithFile("10_7_8");
+    runTestWithFile("5_3_5");
+    runTestWithFile("all_duplicate_colours2");
+    runTestWithFile("all_duplicate_colours");
+    runTestWithFile("all-one-color");
+    runTestWithFile("all-one-color-not-enough");
+    runTestWithFile("insufficient");
+    runTestWithFile("minimal-2");
+    runTestWithFile("minimal-3");
+    runTestWithFile("minimal-4");
+    runTestWithFile("minimal-impossible");
+    runTestWithFile("minimal");
+    runTestWithFile("need-all");
+    runTestWithFile("nicky");
+    runTestWithFile("one_colour");
+    runTestWithFile("peaky");
+    runTestWithFile("rand_10");
+    runTestWithFile("rand-1");
+    runTestWithFile("rand_1");
+    runTestWithFile("rand_2");
+    runTestWithFile("rand_3");
+    runTestWithFile("rand_4");
+    runTestWithFile("rand_5");
+    runTestWithFile("rand_6");
+    runTestWithFile("rand_7");
+    runTestWithFile("rand_8");
+    runTestWithFile("rand_9");
+    runTestWithFile("reverse_nicky");
+    runTestWithFile("simple_wave_possible");
+    runTestWithFile("simple_wave_reverse_possible");
+    runTestWithFile("small_1");
+    runTestWithFile("smallest-impossible");
+    runTestWithFile("threerow");
+  }
 }
+
 ```
 
 
