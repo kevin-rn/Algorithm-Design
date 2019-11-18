@@ -23,6 +23,7 @@ Figure 1: fig1.pdf
 The path through the canyon can start on any of the bottom cells of the grid,
 and end on any of the cells in the top tow, like the two paths on the right in
 Figure 1.
+![images](https://github.com/K-R-N/Algorithm-Design/blob/master/Challenges/Resources/fig1.jpg)
 The lowest height is given by the lowest
 height of any of the cells the paths goes through. Each bridge can be used
 to cross exactly one cell. This cell is then not taken into account
@@ -32,8 +33,10 @@ multiple bridges to use them to cross multiple cells,
 Given the map of the canyon and the number of bridges available, find
 the lowest height of an optimal path.
 
-Figure 2: fig2.pdf
-Input
+Figure 2: 
+![images](https://github.com/K-R-N/Algorithm-Design/blob/master/Challenges/Resources/fig2.jpg)
+
+#### Input
 
     A single line containing three integers: 1≤R≤1000
 
@@ -50,42 +53,42 @@ j-th integer on the i-th line corresponds to the height
     corresponds to the northern edge of the canyon, the last line to the
     southern edge.
 
-Output
+#### Output
 
 Output a single integer, the lowest height of the optimal path.
-Examples
+#### Examples  
 
-For each example, the first block is the input and the second block is the corresponding output.
-Example 1
+For each example, the first block is the input and the second block is the corresponding output.  
+Example 1  
 
-5 3 1
-1 1 3
-3 3 3
-0 0 0
-2 2 1
-1 2 1
+5 3 1  
+1 1 3  
+3 3 3  
+0 0 0  
+2 2 1  
+1 2 1  
 
-2
+2  
 
-Example 2
+Example 2  
 
-5 3 3
-2 1 1
-2 1 1
-1 1 1
-1 1 2
-1 1 2
+5 3 3  
+2 1 1  
+2 1 1  
+1 1 1  
+1 1 2  
+1 1 2  
 
-2
+2  
 
 Example 3
 
-3 2 2
-1 1
-4 4
-1 2
-
-4
+3 2 2  
+1 1  
+4 4  
+1 2  
+ 
+4  
 
 Source: DAPC 2019
 
