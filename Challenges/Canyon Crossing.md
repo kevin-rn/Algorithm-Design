@@ -38,20 +38,8 @@ Figure 2:
 
 #### Input
 
-    A single line containing three integers: 1≤R≤1000
-
-and
-1≤C≤1000, the size of the map, and 0≤K≤R−1
-,
-the number of bridges you can build.
-This is followed by R
-lines each containing C integers. The
-j-th integer on the i-th line corresponds to the height
-0≤Hi,j≤109 of the canyon at point (i,j)
-
-    . The first line
-    corresponds to the northern edge of the canyon, the last line to the
-    southern edge.
+- A single line containing three integers: 1≤R≤1000 and 1≤C≤1000, the size of the map, and 0≤K≤R−1, the number of bridges you can build.
+- This is followed by R lines each containing C integers. The j-th integer on the i-th line corresponds to the height 0≤Hi,j≤109 of the canyon at point (i,j). The first line corresponds to the northern edge of the canyon, the last line to the southern edge.
 
 #### Output
 
