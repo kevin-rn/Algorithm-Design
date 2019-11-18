@@ -1,0 +1,127 @@
+package weblab;
+
+class Solution {
+
+  /**
+   * Recursively searches for the element.
+   * Returns true if element can be found, else false.
+   *
+   * @param tree
+   *     - tree that you need to look in.
+   * @param element
+   *     - the element that you are looking for.
+   * @return true if found, else false.
+   */
+  public boolean search(BinaryTree tree, int element) {
+    if (tree == null) {
+      return false;
+    } else if (tree.getKey() == element) {
+      return true;
+    }
+    return (tree.hasLeft() && search(tree.getLeft(), element)) || (tree.hasRight() && search(tree.getRight(), element));
+  }
+}
+
+
+
+
+
+//____________________________________________________________________________________
+
+package weblab;
+
+import static org.junit.Assert.*;
+import java.util.*;
+import org.junit.*;
+
+public class UTest {
+
+  static BinaryTree hugeTree = buildCompleteTree(10_000_000);
+
+  @Test(timeout = 100)
+  public void testNull() {
+    Solution s = new Solution();
+    BinaryTree tree = null;
+    assertFalse(s.search(tree, 42));
+  }
+
+  @Test(timeout = 100)
+  public void testTiny() {
+    Solution s = new Solution();
+    BinaryTree tree = new BinaryTree(42);
+    assertTrue(s.search(tree, 42));
+  }
+
+  @Test(timeout = 100)
+  public void testSimple() {
+    SolutionImpl s = new SolutionImpl();
+    BinaryTree tree = new BinaryTree(50, new BinaryTree(30, new BinaryTree(20), new BinaryTree(10)), new BinaryTree(600, new BinaryTree(200), new BinaryTree(100)));
+    assertFalse(s.search(tree, 999));
+    assertTrue(s.count > 6);
+  }
+
+  @Test(timeout = 500)
+  public void testLarge() {
+    SolutionImpl s = new SolutionImpl();
+    int n = 10;
+    BinaryTree tree = buildCompleteTree(n);
+    for (int i = 1; i <= n; i++) {
+      assertTrue(s.search(tree, i));
+    }
+    for (int i = n + 1; i <= 2 * n; i++) {
+      assertFalse(s.search(tree, i));
+    }
+  }
+
+  @Test(timeout = 500)
+  public void testDepthFirst() {
+    SolutionImpl s = new SolutionImpl();
+    BinaryTree tree = new BinaryTree(1, new BinaryTree(2, new BinaryTree(24, new BinaryTree(100, new BinaryTree(999), new BinaryTree(1337)), new BinaryTree(101)), new BinaryTree(42)), new BinaryTree(42));
+    assertTrue(s.search(tree, 42));
+    assertTrue(s.count > 7);
+  }
+
+  @Test(timeout = 1000)
+  public void testHugeTree() {
+    SolutionImpl s = new SolutionImpl();
+    assertTrue(s.search(hugeTree, 4242));
+    assertFalse(s.search(hugeTree, 42424242));
+    // Not gonna bother counting. Sorry. XD
+    assertTrue(s.count > 10_000_000);
+  }
+
+  public static BinaryTree buildCompleteTree(int nodes) {
+    if (nodes == 0)
+      return null;
+    BinaryTree root = new BinaryTree(1);
+    Queue<BinaryTree> q = new LinkedList<>();
+    q.add(root);
+    int i = 2;
+    while (i <= nodes) {
+      BinaryTree p = q.poll();
+      p.setLeft(new BinaryTree(i));
+      q.add(p.getLeft());
+      i++;
+      if (i <= nodes) {
+        p.setRight(new BinaryTree(i));
+        q.add(p.getRight());
+      }
+      i++;
+    }
+    return root;
+  }
+
+  class SolutionImpl extends Solution {
+
+    int count;
+
+    SolutionImpl() {
+      count = 0;
+    }
+
+    public boolean search(BinaryTree tree, int element) {
+      count++;
+      return super.search(tree, element);
+    }
+  }
+}
