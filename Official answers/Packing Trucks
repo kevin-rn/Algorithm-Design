@@ -1,0 +1,31 @@
+package weblab;
+
+
+class Solution {
+
+  public static /**
+   * @param n the number of packages
+   * @param weights the weights of all packages 1 through n. Note that weights[0] should be ignored!
+   * @param maxWeight the maximum weight a truck can carry
+   * @return the minimal number of trucks required to ship the packages _in the given order_.
+   */
+  int minAmountOfTrucks(int n, int[] weights, int maxWeight) {
+    int trucks = 0;
+    int currentWeight = 0;
+    if (n == 0)
+      return 0;
+    if (n > 0) {
+      trucks++;
+      currentWeight = weights[1];
+    }
+    for (int i = 2; i <= n; i++) {
+      if (currentWeight + weights[i] > maxWeight) {
+        trucks++;
+        currentWeight = weights[i];
+      } else {
+        currentWeight = currentWeight + weights[i];
+      }
+    }
+    return trucks;
+  }
+}
