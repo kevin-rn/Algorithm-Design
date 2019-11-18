@@ -13,7 +13,7 @@ In order to make this work, you might need to turn some of the pedestals upside 
 For example, Figure 1 shows a possible assignment of pedestals to vases for sample input 1.  
 Assist the gallery by writing a program to compute such an assignment.
 
-![image info](./resources/HistoricExhibition.png)
+![alt text](https://github.com/K-R-N/Algorithm-Design/blob/master/Challenges/Resources/HistoricExhibition.png)
 
 #### Input
 
