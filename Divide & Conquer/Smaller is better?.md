@@ -72,5 +72,27 @@ ________________________________________________________________________________
 
 ### Solution:
 ```java
+package weblab;
+
+class Solution {
+
+  /**
+   * Finds the x coordinate with the smallest distance between two linear equations, by recursively evaluating the median of the range and that integer + 1.
+   * Depending on the value, a new evaluation is made with a smaller range to find the x coordinate with the smallest distance.
+   * @param e1 the first equation to evaluate
+   * @param e2 the second equation to evaluate
+   * @param low the lower boundary of the range
+   * @param high the upper boundary of the range
+   * @return the x coordinate with the minimum difference between e1 and e2
+   */
+  public static long findMin(Equation e1, Equation e2, long low, long high) {
+    if(low == high) return low;
+    long mid = (low + high) / 2;
+    if (Math.abs(e1.evaluate(mid) - e2.evaluate(mid)) <= Math.abs(e1.evaluate(mid + 1) - e2.evaluate(mid + 1))) return findMin(e1, e2, low, mid);
+    else return findMin(e1, e2, mid + 1, high);
+    
+  }
+}
+
 
 ```
