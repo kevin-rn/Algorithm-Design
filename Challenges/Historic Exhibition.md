@@ -13,6 +13,8 @@ In order to make this work, you might need to turn some of the pedestals upside 
 For example, Figure 1 shows a possible assignment of pedestals to vases for sample input 1.  
 Assist the gallery by writing a program to compute such an assignment.
 
+![image info](./resources/HistoricExhibition.png)
+
 #### Input
 
 - The first line contains two integers 0≤p, v≤104 the number of pedestals and the number of vases.
