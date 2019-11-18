@@ -1,0 +1,118 @@
+package weblab;
+
+class Solution {
+
+  /**
+   * Finds the x coordinate with the smallest distance between two linear equations, by recursively evaluating the median of the range and that integer + 1.
+   * Depending on the value, a new evaluation is made with a smaller range to find the x coordinate with the smallest distance.
+   * @param e1 the first equation to evaluate
+   * @param e2 the second equation to evaluate
+   * @param low the lower boundary of the range
+   * @param high the upper boundary of the range
+   * @return the x coordinate with the minimum difference between e1 and e2
+   */
+  public static long findMin(Equation e1, Equation e2, long low, long high) {
+    if (low == high) {
+      return low;
+    }
+    long mid = (low + high) / 2;
+    if (Math.abs(e1.evaluate(mid) - e2.evaluate(mid)) <= Math.abs(e1.evaluate(mid + 1) - e2.evaluate(mid + 1))) {
+      return findMin(e1, e2, low, mid);
+    } else {
+      return findMin(e1, e2, mid + 1, high);
+    }
+  }
+}
+
+
+//______________________________________________________________________________________________________________________
+
+package weblab;
+
+import static org.junit.Assert.*;
+import java.io.*;
+import java.nio.charset.*;
+import java.util.*;
+import org.junit.*;
+import org.junit.rules.*;
+
+public class UTest {
+
+  private long time = 0;
+
+  @Rule
+  public TestName name = new TestName();
+
+  @Before
+  public void setUp() {
+    time = System.currentTimeMillis();
+  }
+
+  @After
+  public void tearDown() {
+    System.out.println("Test '" + name.getMethodName() + "' took " + (System.currentTimeMillis() - time) + "ms");
+  }
+
+  private static /*
+#### Input and output
+
+The input and output of files have been taken care of in this assignment, you will only need to implement the `findMin` method.
+
+In your tests you will be able to see one test with an example file, the example file has the following structure:
+
+The first line of the input stream will contain two numbers:
+Indicating the smallest value of the range and the largest value of the range that you need to consider.
+
+Afterwards there will be two lines, with on each line 3 numbers to represent a quadratic equation.
+The first one will be the parameter for the second degree polynomial, the second one will be the parameter for the first degree polynomial and the last one will be the parameter for the constant.
+
+The output contains one integer, that is the x coordinate of the minimum difference between the two functions.
+
+The provided example input and output looks like this:
+
+```
+0 100
+0 8 -240
+0 6 -156
+```
+
+```
+42
+   */
+  void runTestWithFile(String fileName) {
+    Scanner sc = new Scanner(new ByteArrayInputStream(WebLab.getData(fileName + ".in").getBytes(StandardCharsets.UTF_8)));
+    long begin = sc.nextInt();
+    long end = sc.nextInt();
+    Equation e1 = new QuadraticEquation(sc.nextLong(), sc.nextLong(), sc.nextLong());
+    Equation e2 = new QuadraticEquation(sc.nextLong(), sc.nextLong(), sc.nextLong());
+    sc.close();
+    assertEquals(WebLab.getData(fileName + ".out").trim(), Long.toString(Solution.findMin(e1, e2, begin, end)));
+  }
+
+  @Test(timeout = 100)
+  public void testExample() {
+    Equation eq1 = new QuadraticEquation(0, 8, -240);
+    Equation eq2 = new QuadraticEquation(0, 6, -156);
+    assertEquals(42, Solution.findMin(eq1, eq2, 0, 100));
+  }
+
+  @Test(timeout = 100)
+  public void testQuadraticOneExtremum() {
+    runTestWithFile("quadraticOneExtremum");
+  }
+
+  @Test(timeout = 100)
+  public void testQuadraticSameExtremum() {
+    runTestWithFile("quadraticSameExtremum");
+  }
+
+  @Test(timeout = 100)
+  public void testQuadraticAndLinear() {
+    runTestWithFile("quadraticAndLinear");
+  }
+
+  @Test(timeout = 100)
+  public void testQuadraticMassive() {
+    runTestWithFile("quadraticMassive");
+  }
+}
