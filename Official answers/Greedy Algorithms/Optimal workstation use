@@ -1,0 +1,73 @@
+package weblab;
+
+import java.io.*;
+import java.util.*;
+
+class Solution {
+
+  public static /**
+   * @param n number of researchers
+   * @param m number of processes
+   * @param start start times of jobs 1 through n. NB: you should ignore start[0]
+   * @param end end times of jobs 1 through n. NB: you should ignore start[0]
+   * @return the number of unlocks that can be saved.
+   */
+  int solve(int n, int m, int[] start, int[] end) {
+    ArrayList<Session> sessionList = new ArrayList<>();
+    for (int i = 1; i <= n; i++) {
+      sessionList.add(new Session(start[i], end[i]));
+    }
+    Collections.sort(sessionList);
+    int unlocksSaved = 0;
+    PriorityQueue<Machine> machineQueue = new PriorityQueue<>();
+    for (Session s : sessionList) {
+      while (!machineQueue.isEmpty()) {
+        if (machineQueue.peek().available > s.start) {
+          break;
+        }
+        Machine firstMachine = machineQueue.poll();
+        // and an unlock is saved
+        if (firstMachine.locked >= s.start) {
+          unlocksSaved++;
+          break;
+        }
+      }
+      machineQueue.add(new Machine(s.start + s.duration, s.start + s.duration + m));
+    }
+    return unlocksSaved;
+  }
+}
+
+class Session implements Comparable<Session> {
+
+  public int start;
+
+  public int duration;
+
+  public Session(int arrives, int duration) {
+    this.start = arrives;
+    this.duration = duration;
+  }
+
+  @Override
+  public int compareTo(Session otherJob) {
+    return Integer.compare(start, otherJob.start);
+  }
+}
+
+class Machine implements Comparable<Machine> {
+
+  public int available;
+
+  public int locked;
+
+  public Machine(int available, int locked) {
+    this.available = available;
+    this.locked = locked;
+  }
+
+  @Override
+  public int compareTo(Machine otherMachine) {
+    return Integer.compare(locked, otherMachine.locked);
+  }
+}
