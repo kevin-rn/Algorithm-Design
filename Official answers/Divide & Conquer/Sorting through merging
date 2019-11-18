@@ -1,0 +1,186 @@
+package weblab;
+
+class Solution {
+
+  /**
+   * Takes an array and sorts it in an ascending order.
+   *
+   * @param arr
+   *     - the array that needs to be sorted.
+   */
+  public void sort(int[] arr) {
+    sort(arr, 0, arr.length - 1);
+  }
+
+  /**
+   * Helper method that recursively calls sort on the subarrays and merges them together.
+   *
+   * @param arr
+   *     - the array that needs to be sorted.
+   * @param low
+   *     - lower boundary of the subarray.
+   * @param high
+   *     - upper boundary of the subarray.
+   */
+  public void sort(int[] arr, int low, int high) {
+    if (low >= high) {
+      return;
+    }
+    int mid = (low + high) / 2;
+    sort(arr, low, mid);
+    sort(arr, mid + 1, high);
+    merge(arr, low, mid, high);
+  }
+
+  /**
+   * Helper method that merges two partially sorted subarrays.
+   *
+   * @param arr
+   *     - array that needs to be sorted.
+   * @param low
+   *     - lower boundary of the lower subarray.
+   * @param mid
+   *     - index to indicate the boundary between the two subarrays.
+   * @param high
+   *     - upper boundary of the upper subarray.
+   */
+  public void merge(int[] arr, int low, int mid, int high) {
+    int leftSize = mid - low + 1;
+    int rightSize = high - mid;
+    int[] left = new int[leftSize];
+    int[] right = new int[rightSize];
+    for (int i = 0; i < leftSize; i++) {
+      left[i] = arr[low + i];
+    }
+    for (int i = 0; i < rightSize; i++) {
+      right[i] = arr[mid + 1 + i];
+    }
+    int i = 0;
+    int j = 0;
+    int k = low;
+    while (i < leftSize && j < rightSize) {
+      if (left[i] <= right[j]) {
+        arr[k] = left[i];
+        i++;
+      } else {
+        arr[k] = right[j];
+        j++;
+      }
+      k++;
+    }
+    while (i < leftSize) {
+      arr[k] = left[i];
+      i++;
+      k++;
+    }
+    while (j < rightSize) {
+      arr[k] = right[j];
+      j++;
+      k++;
+    }
+  }
+}
+
+
+
+//___________________________________________________________________________________________________________________
+
+
+package weblab;
+
+import static org.junit.Assert.*;
+import java.util.*;
+import org.junit.*;
+
+public class UTest {
+
+  static int[] hugeArray = createHugeArray();
+
+  static int[] hugeSorted;
+
+  public static int[] createHugeArray() {
+    int n = 1_000_000;
+    hugeArray = new int[n];
+    Random rnd = new Random();
+    for (int i = 0; i < n; i++) {
+      hugeArray[i] = rnd.nextInt(1_000_000_000);
+    }
+    hugeSorted = hugeArray.clone();
+    Arrays.sort(hugeSorted);
+    return hugeArray;
+  }
+
+  @Test(timeout = 100)
+  public void example() {
+    int[] input = { 4, 2, 5, 1, 3 };
+    new Solution().sort(input);
+    assertArrayEquals(new int[] { 1, 2, 3, 4, 5 }, input);
+  }
+
+  @Test(timeout = 100)
+  public void testEmpty() {
+    Solution s = new Solution();
+    int[] arr = new int[0];
+    int[] result = arr.clone();
+    s.sort(arr);
+    assertArrayEquals(result, arr);
+  }
+
+  @Test(timeout = 100)
+  public void testSorted() {
+    Solution s = new Solution();
+    int[] arr = { 1, 2, 3, 4, 5, 6, 7 };
+    int[] result = arr.clone();
+    s.sort(arr);
+    assertArrayEquals(result, arr);
+  }
+
+  @Test(timeout = 100)
+  public void testOne() {
+    Solution s = new Solution();
+    int[] arr = { 1 };
+    int[] result = arr.clone();
+    s.sort(arr);
+    assertArrayEquals(result, arr);
+  }
+
+  @Test(timeout = 100)
+  public void testReversed() {
+    Solution s = new Solution();
+    int[] arr = { 7, 6, 5, 4, 3, 2, 1 };
+    int[] result = { 1, 2, 3, 4, 5, 6, 7 };
+    s.sort(arr);
+    assertArrayEquals(arr, result);
+  }
+
+  @Test(timeout = 100)
+  public void testSmall() {
+    Solution s = new Solution();
+    int[] arr = { 5, 63, 436534, 3452, 45352, 765756, 876, -1234, 345, -64353 };
+    int[] result = arr.clone();
+    Arrays.sort(result);
+    s.sort(arr);
+    assertArrayEquals(result, arr);
+  }
+
+  @Test(timeout = 100)
+  public void testLarge() {
+    Solution s = new Solution();
+    Random random = new Random(42);
+    int[] arr = new int[42];
+    for (int i = 0; i < 42; i++) {
+      arr[i] = random.nextInt(100);
+    }
+    int[] result = arr.clone();
+    Arrays.sort(result);
+    s.sort(arr);
+    assertArrayEquals(result, arr);
+  }
+
+  @Test(timeout = 2000)
+  public void testHuge() {
+    Solution s = new Solution();
+    s.sort(hugeArray);
+    assertArrayEquals(hugeSorted, hugeArray);
+  }
+}
