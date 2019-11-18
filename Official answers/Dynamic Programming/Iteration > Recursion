@@ -1,0 +1,128 @@
+package weblab;
+
+import java.io.*;
+import java.util.*;
+
+class Solution {
+
+  /**
+   * Returns the n'th Fibonacci number
+   */
+  public static int fibonacci(int n) {
+    // The array in which you must implement your memoization.
+    int[] fibonacci = new int[n + 1];
+    fibonacci[0] = 0;
+
+    fibonacci[1] = 1;
+
+    // After that, iterate through all fibonacci numbers from index 2 up to n.
+    for (int i = 2; i <= n; i++) {
+      fibonacci[i] = fibonacci[i - 1] + fibonacci[i - 2];
+    }
+    // Returning the obtained fibonacci value at index n.
+    return fibonacci[n];
+  }
+}
+
+//___________________________________________________________________________________________________
+
+package weblab;
+
+import static org.junit.Assert.*;
+import org.junit.*;
+import org.junit.rules.*;
+
+public class UTest {
+
+  private long time = 0;
+
+  @Rule
+  public TestName name = new TestName();
+
+  @Before
+  public void setUp() {
+    time = System.currentTimeMillis();
+  }
+
+  @After
+  public void tearDown() {
+    System.out.println("Test '" + name.getMethodName() + "' took " + (System.currentTimeMillis() - time) + "ms");
+  }
+
+  private static void runTestWithFile(String fileName) {
+    int n = Integer.parseInt(WebLab.getData(fileName + ".in").trim());
+    int theirSolution = Solution.fibonacci(n);
+    int ourSolution = Integer.parseInt(WebLab.getData(fileName + ".out").trim());
+    assertEquals(ourSolution, theirSolution);
+  }
+
+  @Test(timeout = 100)
+  public void example() {
+    assertEquals(8, Solution.fibonacci(6));
+  }
+
+  @Test(timeout = 100)
+  public void test01() {
+    runTestWithFile("test1");
+  }
+
+  @Test(timeout = 100)
+  public void test02() {
+    runTestWithFile("test2");
+  }
+
+  @Test(timeout = 100)
+  public void test03() {
+    runTestWithFile("test3");
+  }
+
+  @Test(timeout = 100)
+  public void test04() {
+    runTestWithFile("test4");
+  }
+
+  @Test(timeout = 100)
+  public void test05() {
+    assertEquals(5, Solution.fibonacci(5));
+  }
+
+  @Test(timeout = 100)
+  public void test07() {
+    runTestWithFile("test7");
+  }
+
+  @Test(timeout = 100)
+  public void test08() {
+    runTestWithFile("test8");
+  }
+
+  @Test(timeout = 100)
+  public void test09() {
+    runTestWithFile("test9");
+  }
+
+  @Test(timeout = 100)
+  public void test10() {
+    runTestWithFile("test10");
+  }
+
+  @Test(timeout = 100)
+  public void test11() {
+    runTestWithFile("test11");
+  }
+
+  @Test(timeout = 100)
+  public void test12() {
+    runTestWithFile("test12");
+  }
+
+  @Test(timeout = 100)
+  public void test13() {
+    runTestWithFile("test13");
+  }
+
+  @Test(timeout = 100)
+  public void test14() {
+    runTestWithFile("test14");
+  }
+}
