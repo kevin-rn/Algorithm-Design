@@ -54,7 +54,61 @@ public class UTest {
   }
 }
 ```
+#### Template:
+```java
+package weblab;
 
+import java.io.*;
+import java.util.*;
+
+/**
+ * WARNING: The spec tests are not necessarily equal to your grade!
+ * You can use them help you test for the correctness of your algorithm,
+ * but the final grade is determined by a manual inspection of your implementation.
+ */
+class Solution {
+
+  // Implement the solve method to return the answer to the problem posed by the inputstream.
+  public static String run(InputStream in) {
+    return new Solution().solve(in);
+  }
+
+  private int numCases;
+
+  private int numCourtRooms;
+
+  private long[] caseTimes;
+
+  public String solve(InputStream in) {
+    parseInput(in);
+    return Long.toString(computeLastFinish());
+  }
+
+  /**
+   *  You should implement this method to compute when the last court case will be finished.
+   */
+  private long computeLastFinish() {
+  // TODO
+  }
+
+  /**
+   *  This method parses the input from an inputstream. You should not need to modify this method.
+   */
+  private void parseInput(InputStream in) {
+    Scanner sc = new Scanner(in);
+    this.numCases = sc.nextInt();
+    this.numCourtRooms = sc.nextInt();
+    this.caseTimes = new long[this.numCases];
+    for (int i = 0; i < this.numCases; i++) {
+      sc.next();
+      this.caseTimes[i] = sc.nextLong();
+    }
+    sc.close();
+  }
+}
+
+```
+___________________________________________________________________________________________________________________________________
 ### Solution: O(n log m) runtime complexity
 ```java
 package weblab;
@@ -122,4 +176,26 @@ class Solution {
   }
 }
 ```
-
+##### Other solution: O(n^2) runtime complexity
+```java
+private long computeLastFinish() {
+ ArrayList<Long> pq = new ArrayList<>();
+    for (int i = 0; i < this.numCourtRooms; i++) {
+      pq.add(0l);
+    }
+    long result = 0;
+    for (int i = 0; i < this.numCases; i++) {
+      long earliestCourtRoom = pq.get(0);
+      int earliestCourRoomIndex = 0;
+      for (int j = 0; j < pq.size(); j++) {
+        if (pq.get(j) < earliestCourtRoom) {
+          earliestCourRoomIndex = j;
+          earliestCourtRoom = pq.get(j);
+        }
+      }
+      pq.set(earliestCourRoomIndex, earliestCourtRoom + this.caseTimes[i] + 1);
+      result = Math.max(result, earliestCourtRoom + this.caseTimes[i]);
+    }
+    return result;
+ }
+    ```
