@@ -7,6 +7,14 @@ For example if you get the list [2, 1, 0, 8], your algorithm should print the nu
 
 ### Template:
 ```java
+import java.io.*;
+
+class Solution {
+
+  static int countInversions(int[] array) {
+  // TODO
+  }
+}
 
 
 ```
