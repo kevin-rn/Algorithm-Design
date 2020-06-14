@@ -342,5 +342,46 @@ class Solution {
 
 ### My Solution:
 ```java
+import java.io.*;
+import java.util.*;
 
+class Solution {
+
+  // Implement the solve method to return the answer to the problem posed by the inputstream.
+  public static String run(InputStream in) { return new Solution().solve(in); }
+
+  public String solve(InputStream in) {
+    Scanner sc = new Scanner(in);
+    int n = sc.nextInt();
+    int k = sc.nextInt();
+    List<House> houses = new ArrayList<>(n);
+    for (int i = 0; i < n; i++) houses.add(new House(i, sc.nextInt(), sc.nextInt()));
+    sc.close();
+    int m = n * (n - 1) / 2;
+    List<Distance> distances = new ArrayList<>(m);
+    for (int i = 0; i < n; i++) {
+      for (int j = i + 1; j < n; j++) {
+        distances.add(new Distance(houses.get(i), houses.get(j)));
+      }
+    }
+    UnionFind unionFind = new UnionFind(houses);
+    distances.sort(Comparator.comparingLong(d -> d.distance));
+    int count = 0;
+    for(Distance distance : distances) {
+      if(count == n -k) break;
+      if(unionFind.join(distance.a, distance.b)) count++;
+    }
+    StringBuilder str = new StringBuilder();
+    for(List<House> cluster : unionFind.clusters()) {
+      long c = 0, sumX = 0, sumY = 0;
+      for (House house : cluster) {
+        c++;
+        sumX += house.x;
+        sumY += house.y;
+      }
+      str.append((double) sumX / c + 1e-6).append(' ').append((double) sumY / c).append('\n');
+    }
+    return str.toString();
+  }
+}
 ```
