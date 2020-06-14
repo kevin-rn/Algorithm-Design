@@ -152,6 +152,37 @@ class Item {
       this.value = value;
     }
 }
+```
 
+### Alternative Solution:
+```java
+import java.io.*;
+import java.util.*;
 
+class Solution {
+  // inputstream.
+  public static String run(InputStream in) {
+    return new Solution().solve(in);
+  }
+
+  public String solve(InputStream in) {
+    Scanner sc = new Scanner(in);
+    int W = sc.nextInt(), n = sc.nextInt();
+    int[] weight = new int[n+1], value=new int[n+1];
+    for(int i = 1; i<= n; i++) {
+      weight[i] = sc.nextInt();
+      value[i] = sc.nextInt();
+    }
+    sc.close();
+    int[][] mem = new int[n+1][W+1];
+    for(int w = 0; w <= W; w++) mem[0][w] = 0;
+    for(int i = 1; i <= n; i++) {
+      for(int w = 0; w <= W; w++) {
+        if(weight[i] > w) mem[i][w] = mem[i-1][w];
+        else mem[i][w] = Integer.max(mem[i-1][w], value[i] + mem[i-1][w-weight[i]]);
+      }
+    } 
+    return ""+mem[n][W];
+  }
+}
 ```
