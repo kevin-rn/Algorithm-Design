@@ -36,11 +36,71 @@ public class UTest {
 
 ________________________________________________________________________________________________________________________________
 
-### Solution:
+### Official Solution:
 ```java
-package weblab;
+import java.io.*;
 
-// import java.io.*;
+class Solution {
+
+  static int countInversions(int[] array) {
+    return sortAndCount(array, 0, array.length - 1);
+  }
+
+  public static // Sort input array using recursion and return number of inversions
+  int sortAndCount(int[] array, int left, int right) {
+    int inversions = 0;
+    int mid;
+    if (right > left) {
+      // Divide array into two parts and do mergeAndCount sort on both parts
+      mid = (right + left) / 2;
+      // Inversions are the sum of left-part inversions, right-part inversions,
+      // and inversions during merging
+      inversions = sortAndCount(array, left, mid);
+      inversions += sortAndCount(array, mid + 1, right);
+      inversions += mergeAndCount(array, left, mid + 1, right);
+    }
+    return inversions;
+  }
+
+  public static // Merge two sorted arrays and return number of inversions that occurred.
+  int mergeAndCount(int[] array, int left, int mid, int right) {
+    int inversions = 0;
+    int[] temp = new int[array.length];
+    // i is index for left subarray
+    int i = left;
+    // j is index for right subarray
+    int j = mid;
+    // k is index for merged subarrays
+    int k = left;
+    while ((i <= mid - 1) && (j <= right)) {
+      if (array[i] <= array[j]) {
+        temp[k++] = array[i++];
+      } else {
+        temp[k++] = array[j++];
+        inversions = inversions + (mid - i);
+      }
+    }
+    // Copy remaining elements of left subarray to temp
+    while (i <= mid - 1) {
+      temp[k++] = array[i++];
+    }
+    // Copy remaining elements of right subarray to temp
+    while (j <= right) {
+      temp[k++] = array[j++];
+    }
+    // Copy back merged elements to original array.
+    for (i = left; i <= right; i++) {
+      array[i] = temp[i];
+    }
+    return inversions;
+  }
+}
+
+```
+
+### My Solution:
+```java
+
 import java.util.*;
 class Solution {
 
@@ -79,5 +139,43 @@ class Solution {
         }
         return swaps; 
     } 
+}
+```
+
+### Alternative Solution:
+```java
+import java.io.*;
+
+class Solution {
+
+  static int countInversions(int[] array) {
+    return countsort(array, 0, array.length-1);
+  }
+  
+  static int countsort(int[] array, int l, int r) {
+    int inversions = 0;
+    if (r > l) {
+      inversions = countsort(array, l, (r+l)/2);
+      inversions += countsort(array, (r+l)/2+1, r);
+      inversions += countmerge(array, l, (r+l)/2+1, r);
+    }
+    return inversions;
+  }
+  
+  public static int countmerge(int[] array, int l, int m, int r) {
+    int[] temp = new int[array.length];
+    int i = l, j = m, k = l, inversions = 0;
+    while ((i <= m - 1) && (j <= r)) {
+      if (array[i] <= array[j]) temp[k++] = array[i++];
+      else {
+        temp[k++] = array[j++];
+        inversions = inversions + (m - i);
+      }
+    }
+    while (i <= m - 1) temp[k++] = array[i++];
+    while (j <= r) temp[k++] = array[j++];
+    for (i = l; i <= r; i++) array[i] = temp[i];
+    return inversions;
+  }
 }
 ```
