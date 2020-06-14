@@ -19,22 +19,11 @@ You cannot edit these classes, but you can use them in your implementation.
 Input and output
 
 The first line of the input stream will contain two numbers:
-n
-(with 1≤n≤1000), which is the number of houses;
+n (with 1≤n≤1000), which is the number of houses;
 and k (with 1≤k≤n), which is the number of stores you will open.
-Following this are n lines, each with two integers,
-which are the x and y
+Following this are n lines, each with two integers, which are the x and y coordinates of each house.
 
-coordinates of each house.
-
-You should return a string that contains k
-lines,
-each line containing two numbers,
-which are the x and y coordinates of each new store.
-The order of the stores does not matter,
-and per number you can have a maximum relative error of 10−6
-
-.
+You should return a string that contains k lines, each line containing two numbers, which are the x and y coordinates of each new store. The order of the stores does not matter, and per number you can have a maximum relative error of 10−6.
 
 The following example represents the image above:
 
@@ -58,7 +47,7 @@ The resulting output would be in this case:
 
 
 
-###Template:
+### Template:
 ```java
 import java.io.*;
 import java.util.*;
@@ -92,7 +81,7 @@ class Solution {
 }
 ```
 
-###Library:
+### Library:
 ```java
 import java.util.*;
 
@@ -180,7 +169,7 @@ class UnionFind {
 }
 ```
 
-###Tests:
+### Tests:
 ```java
 import static org.junit.Assert.*;
 import java.io.*;
@@ -295,7 +284,7 @@ public class UTest {
 
 _____________________________________________________________________________________________________________________
 
-###Official Solution:
+### Official Solution:
 ```java
 import java.io.*;
 import java.util.*;
@@ -351,7 +340,7 @@ class Solution {
 ```
 
 
-###My Solution:
+### My Solution:
 ```java
 
 ```
