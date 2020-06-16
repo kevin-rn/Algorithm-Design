@@ -14,15 +14,15 @@ in the lists of both teams.
 
 The first team that is entered is team x, i.e. the team of which we want to find out if it can still win.
 
-4 
-4 10 2
-2 3
-1 12 2
-2 3 
-2 11 3
-1 3 4
-3 11 3
-1 2 4
+4   
+4 10 2  
+2 3  
+1 12 2  
+2 3   
+2 11 3  
+1 3 4  
+3 11 3  
+1 2 4  
 
 ### Template:
 ```java
@@ -44,8 +44,6 @@ class Solution {
 
 ### Library:
 ```java
-import java.util.*;
-
 class MaxFlow {
 
   private static List<Edge> findPath(Graph g, Node start, Node end) {
@@ -240,6 +238,104 @@ class Edge {
 
 ### Test:
 ```java
+package weblab;
+
+import static org.junit.Assert.*;
+import java.io.*;
+import java.nio.charset.*;
+import org.junit.*;
+import org.junit.rules.*;
+
+public class UTest {
+
+  private long time = 0;
+
+  @Rule
+  public TestName name = new TestName();
+
+  @Before
+  public void setUp() {
+    time = System.currentTimeMillis();
+  }
+
+  @After
+  public void tearDown() {
+    System.out.println("Test '" + name.getMethodName() + "' took " + (System.currentTimeMillis() - time) + "ms");
+  }
+
+  private static void runTestWithFile(String fileName) {
+    assertEquals(Boolean.parseBoolean(WebLab.getData(fileName + ".out").trim()), Solution.solve(new ByteArrayInputStream(WebLab.getData(fileName + ".in").getBytes(StandardCharsets.UTF_8))));
+  }
+
+  @Test(timeout = 100)
+  public void testExample() {
+    runTestWithFile("example");
+  }
+
+  /**
+   * Same test as example, but now with 1 more win for team 4.
+   */
+  @Test(timeout = 100)
+  public void testExampleTrue() {
+    runTestWithFile("exampleTrue");
+  }
+
+  /**
+   * Test case from the book, page 400
+   */
+  @Test(timeout = 100)
+  public void testBook() {
+    runTestWithFile("testBook");
+  }
+
+  /**
+   * Test case from the book, page 400, interested in team NY
+   */
+  @Test(timeout = 100)
+  public void testBookNY() {
+    runTestWithFile("testBookNY");
+  }
+
+  /**
+   * Test case from the book, page 400, interested in team Baltimore
+   */
+  @Test(timeout = 100)
+  public void testBookB() {
+    runTestWithFile("testBookB");
+  }
+
+  /**
+   * Test case with 15 teams
+   */
+  @Test(timeout = 100)
+  public void test15Teams() {
+    runTestWithFile("test15Teams");
+  }
+
+  /**
+   * Test case with 500 teams, return true
+   */
+  @Test(timeout = 3000)
+  public void testLargeTrue() {
+    runTestWithFile("testLargeTrue");
+  }
+
+  /**
+   * Test case with 500 teams, return false
+   */
+  @Test(timeout = 6000)
+  public void testLargeFalse() {
+    runTestWithFile("testLargeFalse");
+  }
+
+  /**
+   * Test case with 5000 teams where false can be returned without building a full graph
+   */
+  @Test(timeout = 500)
+  public void testLargeTrivial() {
+    runTestWithFile("testLargeTrivial");
+  }
+}
 
 ```
 
