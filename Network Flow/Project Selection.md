@@ -1,13 +1,9 @@
 Led by Oliver Stone the camel club has played a part in many important events over the years. Despite Oliver’s insistence on keeping a low profile, the club has recently been discovered by Sean & Michelle who have managed to convince Oliver to start taking cases with them. The camel club now features a large variety in skills among its members and thus when new cases come in, they need to closely assess who takes on what jobs.
 
-Every member of the club has a certain set of skills and every job requires a certain set of skills. For instance Caleb is a literature expert, whereas Oliver is an investigator and literature expert. Their latest job which involved some literature research was done by Caleb as a result, whereas Oliver tackled the job before that required both investigation and literature research. Every member still has other obligations however (Caleb still wants to visit the library often for instance), so every member has a limited number of hours they can work on jobs. Furthermore Sean has worked hard to ensure that every job has a clear description of how many hours a certain job will take.
+Every member of the club has a certain set of skills and every job requires a certain set of skills. For instance Caleb is a literature expert, whereas Oliver is an investigator and literature expert. Their latest job which involved some literature research was done by Caleb as a result, whereas Oliver tackled the job before that required both investigation and literature research. Now that Sean & Michelle are involved, the camel club can finally leave their regular employment behind them and focus
+full time on doing the different jobs. Every member still has other obligations however (Caleb still wants to visit the library often for instance), so every member has a limited number of hours they can work on jobs. Furthermore Sean has worked hard to ensure that every job has a clear description of how many hours a certain job will take.
 
 To help them with the future assignment of jobs to individual camel club members, you have been asked to devise an algorithm that computes what jobs should be attributed to what person such that the camel club can do the largest number of cases. As the members of the camel club also have regular employment, they can only work on one job.
-
-Now that Sean & Michelle are involved, the camel club can finally leave their regular employment behind them and focus
-full time on doing the different jobs. Every member still has other obligations however (Caleb still wants to visit the
-library often for instance), so every member has a limited number of hours they can work on jobs. Furthermore Sean has
-worked hard to ensure that every job has a clear description of how many hours a certain job will take.
 
 Now that every member can potentially take on multiple jobs, we ask ourselves a different question. We now ask: is it
 possible for the camel club to complete all jobs?
