@@ -264,12 +264,161 @@ class Edge {
 
 ### Test:
 ```java
+import static org.junit.Assert.*;
+import java.io.*;
+import java.nio.charset.*;
+import org.junit.*;
+import org.junit.rules.*;
 
+public class UTest {
+
+  private long time = 0;
+
+  @Rule
+  public TestName name = new TestName();
+
+  @Before
+  public void setUp() {
+    time = System.currentTimeMillis();
+  }
+
+  @After
+  public void tearDown() {
+    System.out.println("Test '" + name.getMethodName() + "' took " + (System.currentTimeMillis() - time) + "ms");
+  }
+
+  public InputStream getInputStream(String id) {
+    String str = WebLab.getData(id);
+    return new ByteArrayInputStream(str.getBytes(StandardCharsets.UTF_8));
+  }
+
+  private static void runTestWithFile(String fileName) {
+    long expected = Integer.parseInt(WebLab.getData(fileName + ".out").trim());
+    long actual = new Solution().solve(new ByteArrayInputStream(WebLab.getData(fileName + ".in").getBytes(StandardCharsets.UTF_8)));
+    assertEquals(expected, actual);
+  }
+
+  @Test(timeout = 100)
+  public void example() {
+    runTestWithFile("example");
+  }
+
+  @Test(timeout = 100)
+  public void testOnePixel() {
+    runTestWithFile("onePixel");
+  }
+
+  @Test(timeout = 100)
+  public void testTwoPixels() {
+    runTestWithFile("twoPixels");
+  }
+
+  @Test(timeout = 100)
+  public void testTwoPixelsForeground() {
+    runTestWithFile("twoPixelsForeground");
+  }
+
+  @Test(timeout = 500)
+  public void test50x8() {
+    runTestWithFile("50x8");
+  }
+
+  @Test(timeout = 2000)
+  public void test10x150() {
+    runTestWithFile("10x150");
+  }
+}
 ```
 
 ____________________________________________________________________________________________________________
 
+### Official Solution:
+```java
+import java.io.*;
+import java.util.*;
+
+class Solution {
+
+  public int solve(InputStream in) {
+    Graph g = parse(in);
+    MaxFlow.maximizeFlow(g);
+    int sum = 0;
+    for (Edge e : g.getSource().getEdges()) {
+      sum += e.getFlow();
+    }
+    return sum;
+  }
+
+  public Graph parse(InputStream in) {
+    Scanner sc = new Scanner(in);
+    ArrayList<Node> nodes = new ArrayList<>();
+    // no. of nodes
+    int n = sc.nextInt();
+    // no. of edges
+    int m = sc.nextInt();
+    // source
+    int s = 0;
+    // sink
+    int t = n + 1;
+    Node source = new Node(s);
+    Node sink = new Node(t);
+    // Create nodes list and add source
+    nodes.add(source);
+    for (int x = 0; x < n; x++) {
+      int id = sc.nextInt();
+      int f_i = sc.nextInt();
+      int b_i = sc.nextInt();
+      Node node = new Node(id);
+      nodes.add(node);
+      source.addEdge(node, f_i);
+      node.addEdge(sink, b_i);
+    }
+    nodes.add(sink);
+    // Create all edges
+    for (int x = 0; x < m; x++) {
+      int from = sc.nextInt();
+      int to = sc.nextInt();
+      // Initialize capacity with maximum penalty
+      nodes.get(from).addEdge(nodes.get(to), 10);
+      nodes.get(to).addEdge(nodes.get(from), 10);
+    }
+    return new Graph(nodes, source, sink);
+  }
+}
+```
+
 ### Solution:
 ```java
+import java.io.*;
+import java.util.*;
 
+class Solution {
+
+  public int solve(InputStream in) {
+    Scanner sc = new Scanner(in);
+    int n = sc.nextInt(); // number of pixels
+    int m = sc.nextInt(); // number of undirected edges
+    ArrayList<Node> nodes = new ArrayList<>();
+    Node source = new Node(0), sink = new Node(n+1);
+    nodes.add(source);
+    for(int i = 1; i<=n; i++) {
+      Node pixel_i = new Node(sc.nextInt());
+      nodes.add(pixel_i);
+      source.addEdge(pixel_i, sc.nextInt());
+      pixel_i.addEdge(sink, sc.nextInt());
+    }
+    nodes.add(sink);
+    for(int i = 0; i < m; i++) {
+      Node from = nodes.get(sc.nextInt()), to = nodes.get(sc.nextInt());
+      from.addEdge(to, 10);
+      to.addEdge(from, 10);
+    }
+    sc.close();
+    Graph g = new Graph(nodes, source, sink);
+    MaxFlow.maximizeFlow(g);
+    int score = 0;
+    for(Edge e : g.getSource().getEdges()) score += e.getFlow();
+    return score;
+  }
+}
 ```
