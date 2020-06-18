@@ -556,5 +556,85 @@ class Solution {
 
 ### Solution:
 ```java
+package weblab;
 
+import java.io.*;
+import java.util.*;
+
+class Solution {
+
+  public boolean solve(InputStream in) {
+    Scanner sc = new Scanner(in);
+    int n = sc.nextInt(); //amount of members
+    int m = sc.nextInt(); //amount of jobs
+    ArrayList<Node> nodes = new ArrayList<>();
+    ArrayList<Thing> members = new ArrayList<>(), jobs = new ArrayList<Thing>();
+    Node source = new Node("source"), sink = new Node("sink");
+    nodes.add(source);
+    for(int i = 1; i<=n; i++) {
+      String name = sc.next(); // name of the member
+      int t_i = sc.nextInt(); // amount of time of member
+      int s_i = sc.nextInt(); // amount of skills of member
+      members.add(new Thing(name, t_i, i));
+      for(int j = 0; j < s_i; j++) members.get(i-1).skills.add(sc.next());
+      nodes.add(new Node(name));
+      source.addEdge(nodes.get(i), t_i);
+    }
+    for(int i = 1; i<=m; i++) {
+      String name = sc.next(); // name of the job
+      int p_i = sc.nextInt();  // amount of time to do te job
+      int q_i = sc.nextInt(); // amount of skills needed for job
+      jobs.add(new Thing(name, p_i, i+n));
+      for(int j= 0; j < q_i; j++) jobs.get(i-1).skills.add(sc.next());
+      nodes.add(new Node(name));
+      nodes.get(i+n).addEdge(sink, p_i);
+    }
+    sc.close();
+    // Add edges between members and the jobs they are compatible with (when member has all the skills a job needs)
+    for(int i = 0; i<n; i++) {
+      for(int j = 0; j<m; j++) {
+        Thing member = members.get(i), job = jobs.get(j);
+        if(compatible(member.skills, job.skills)) { 
+          nodes.get(member.index).addEdge(nodes.get(job.index), Integer.MAX_VALUE/2);
+        }
+      }
+    }
+    nodes.add(sink);
+    Graph g = new Graph(nodes, source, sink); //create graph and perform maximizeflow;
+    MaxFlow.maximizeFlow(g);
+    int maxFlow = 0, totalFlow = 0;
+    for(Edge e : g.getSource().getEdges()) maxFlow += e.getFlow();
+    for(Thing t : jobs) totalFlow += t.time;
+    return totalFlow == maxFlow; 
+    // total amount of time should be equal to the maxflow representing the total time to do as many jobs
+  }
+  
+  /**
+   * Helpermethod to see if member contains all job skills necessary.
+   */
+  public boolean compatible(List<String> memberSkills, List<String> jobSkills) {
+    for(String skill : jobSkills) { 
+      if(!memberSkills.contains(skill)) return false;
+    }
+    return true;
+  }
+  
+  /**
+   * Member or Job.
+   */
+  class Thing {
+    String name;
+    int time;
+    List<String> skills;
+    int index;
+    
+    public Thing(String name, int time, int index) {
+      this.name = name;
+      this.time = time;
+      this.skills = new ArrayList<>();
+      this.index = index;
+    }
+    
+  }
+}
 ```
