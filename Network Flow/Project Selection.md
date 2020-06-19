@@ -10,17 +10,17 @@ possible for the camel club to complete all jobs?
 
 The first line contains the amount of members,, n and the amount of jobs, m. These are positive integers >=1. Following this, there is a line for each member. Each of these lines has a single word (the name of the member), a number representing the amount of time this member has available t_i >= 0, followed by a positive integer s_i followed by that number of single words (the names of the skills the member has). After that there is a line for each job. Again each of these lines begin with a single word description of the job, a number indicating how much time is required for this job p_i >= 0, and then have a number q_j >= 0 followed by that number of single words (the names of the skills the jobs requires).
 
-An example is input:
+An example is input:  
+  
+2 3  
+Oliver 5 2 investigation interviewing  
+Caleb 8 2 interviewing lit  
+hire_member 1 1 interviewing  
+interview_author 3 2 interviewing lit   
+solve_crime 4 1 investigation  
 
-2 3
-Oliver 5 2 investigation interviewing
-Caleb 8 2 interviewing lit
-hire_member 1 1 interviewing
-interview_author 3 2 interviewing lit
-solve_crime 4 1 investigation
-
-Which should output:
-true
+Which should output:  
+true  
 
 In the library a full implementation for the following classes is given:
 ```java
