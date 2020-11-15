@@ -204,3 +204,116 @@ class Solution {
   }
 }
 ```
+
+### Official Solution:
+```
+package weblab;
+
+import java.io.*;
+import java.util.*;
+
+class Solution {
+
+  // Implement the solve method to return the answer to the problem posed by the inputstream.
+  public static String run(InputStream in) {
+    return new Solution().solve(in);
+  }
+
+  public String solve(InputStream in) {
+    Scanner sc = new Scanner(in);
+    /*
+     * We already parse the input for you and should not need to make changes to this part of the code.
+     * You are free to change this input format however.
+     */
+    int n = sc.nextInt();
+    int m = sc.nextInt();
+    int s = sc.nextInt();
+    int t = sc.nextInt();
+    ArrayList<HashMap<Integer, Integer>> nodes = new ArrayList<>();
+    for (int i = 0; i <= n; i++) {
+      nodes.add(new HashMap<>());
+    }
+    for (int i = 0; i < m; i++) {
+      int u = sc.nextInt();
+      int v = sc.nextInt();
+      int cost = sc.nextInt();
+      nodes.get(u).put(v, cost);
+    }
+    return solve(nodes, s, t, true);
+  }
+
+  public String solve(ArrayList<HashMap<Integer, Integer>> nodes, int s, int t, boolean checkEnd) {
+    if (checkEnd && s == t) {
+      return "0";
+    }
+    boolean[] visited = new boolean[nodes.size()];
+    int[] distances = new int[nodes.size()];
+    for (int i = 0; i < nodes.size(); i++) {
+      distances[i] = Integer.MAX_VALUE / 2;
+    }
+    PriorityQueue<Tuple> q = new PriorityQueue<>();
+    q.add(new Tuple(s, 0));
+    distances[s] = 0;
+    while (!q.isEmpty()) {
+      Tuple curTuple = q.poll();
+      if (visited[curTuple.id]) {
+        continue;
+      }
+      visited[curTuple.id] = true;
+      if (checkEnd && curTuple.id == t) {
+        return Integer.toString(distances[curTuple.id]);
+      }
+      for (int neighbour : nodes.get(curTuple.id).keySet()) {
+        int newDistance = distances[curTuple.id] + nodes.get(curTuple.id).get(neighbour);
+        newDistance += nodes.get(curTuple.id).size();
+        if (!visited[neighbour] && newDistance < distances[neighbour]) {
+          Tuple newTuple = new Tuple(neighbour, newDistance);
+          // q.remove(new Tuple(neighbour, distances[neighbour]));
+          distances[neighbour] = newTuple.cost;
+          q.add(newTuple);
+        }
+      }
+    }
+    return visited[t] ? Integer.toString(distances[t]) : "-1";
+  }
+
+  class Tuple implements Comparable<Tuple> {
+
+    int id;
+
+    int cost;
+
+    Tuple(int id, int cost) {
+      this.id = id;
+      this.cost = cost;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+      if (this == o)
+        return true;
+      if (o == null || getClass() != o.getClass())
+        return false;
+      Tuple tuple = (Tuple) o;
+      return id == tuple.id;
+    }
+
+    @Override
+    public int hashCode() {
+      return id;
+    }
+
+    @Override
+    public int compareTo(Tuple o) {
+      int res = Integer.signum(this.cost - o.cost);
+      if (res == 0) {
+        return Integer.signum(this.id - o.id);
+      }
+      return res;
+    }
+  }
+}
+
+```
+
+
