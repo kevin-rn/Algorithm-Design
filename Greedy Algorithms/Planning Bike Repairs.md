@@ -58,9 +58,137 @@ class Solution {
   
   }
 }
- 
+```
 
+### Alternative Solution
+```java
+import java.io.*;
+import java.util.*;
 
+class Solution {
 
+  // Implement the solve method to return the answer to the problem posed by the inputstream.
+  public static String run(InputStream in) {
+    return new Solution().solve(in);
+  }
 
+  public String solve(InputStream in) {
+    Scanner sc = new Scanner(in);
+    int n = sc.nextInt(), maxtime = 0;
+    Repair[] rp = new Repair[n+1];
+    for(int i = 0; i < n; i++) {
+      rp[i] = new Repair(sc.nextInt(), sc.nextInt());
+      maxtime = Math.max(maxtime, rp[i].total);
+    }
+    sc.close();
+    int[] times = new int[maxtime+1];
+    for(int i = 0; i < n; i++) {
+      for(int j = rp[i].start; j < rp[i].total; j++) times[j]++;
+    }
+    Arrays.sort(times);
+    return Integer.toString(times[maxtime]);
+  }
+  
+  public class Repair {
+    int start, duration, total;
+    
+    public Repair(int start, int duration) {
+      this.start = start;
+      this.duration = duration;
+      this.total = start + duration;
+    }
+  }
+}
+```
+
+### Official Solution:
+```java
+import java.io.*;
+import java.util.*;
+
+class Solution {
+
+  // Implement the solve method to return the answer to the problem posed by the inputstream.
+  public static String run(InputStream in) {
+    return new Solution().solve(in);
+  }
+
+  public String solve(InputStream in) {
+    Scanner sc = new Scanner(in);
+    
+    int n = sc.nextInt();
+    int[] starts = new int[n];
+    int[] ends = new int[n];
+    for(int i = 0; i < n; i++) {
+      starts[i] = sc.nextInt();
+      ends[i] = starts[i] + sc.nextInt();
+    }
+    
+    Arrays.sort(starts);
+    Arrays.sort(ends);
+    
+    int i = 0;
+    int j = 0;
+    int cnt = 0;
+    int m = 0;
+    while (i < n && j < n) {
+      if (starts[i] < ends[j]) {
+        cnt += 1;
+        m = Math.max(cnt, m);
+        i++;
+      } else {
+        cnt -= 1;
+        j++;
+      }
+    }
+    
+    
+    sc.close();
+    return "" + m;
+  }
+  
+  public String solveQuadratic(InputStream in) {
+    Scanner sc = new Scanner(in);
+    int n = sc.nextInt();
+    Job[] jobs = new Job[n];
+    for (int i = 0; i < n; i++) {
+      jobs[i] = new Job(sc.nextInt(), sc.nextInt());
+    }
+    Arrays.sort(jobs);
+    int depth = 0;
+    for (int i = 1; i < n; i++) {
+      int count = 1;
+      for (int j = 0; j < i; j++) {
+        if (jobs[j].s + jobs[j].l > jobs[i].s) {
+          count++;
+        }
+      }
+      if (count > depth) {
+        depth = count;
+      }
+    }
+    return Integer.toString(depth);
+  }
+
+  private class Job implements Comparable<Job> {
+
+    // start time and length
+    int s, l;
+
+    public Job(int start, int length) {
+      this.s = start;
+      this.l = length;
+    }
+
+    @Override
+    public int compareTo(Job j) {
+      return this.s - j.s;
+    }
+
+    @Override
+    public String toString() {
+      return "Job: " + s + ", " + l;
+    }
+  }
+}
 ```
