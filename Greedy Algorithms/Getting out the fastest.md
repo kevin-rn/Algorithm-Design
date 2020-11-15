@@ -206,7 +206,7 @@ class Solution {
 ```
 
 ### Official Solution:
-```
+```java
 package weblab;
 
 import java.io.*;
