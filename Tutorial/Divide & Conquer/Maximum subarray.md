@@ -87,3 +87,23 @@ class Solution {
   }
 }
 ```
+
+### Solution
+```java
+class Solution {
+
+  public static int largestSum(int[] arr) {
+    if(arr == null || arr.length == 0) return 0;
+    return sum(arr, 0, arr.length-1);
+  }
+  
+  private static int sum(int[] arr, int start, int end) {
+    if(start==end) return arr[start];
+    int mid = (start+end)/2, total = 0, left = Integer.MIN_VALUE, right = Integer.MIN_VALUE;
+    for(int i = mid; i >= start; i--) left = Math.max(left, total += arr[i]);
+    total = 0;
+    for(int i = mid+1; i <= end; i++) right = Math.max(right, total += arr[i]);
+    return Math.max(Math.max(sum(arr, start, mid), sum(arr, mid+1, end)), left+right);
+  }
+}
+```
