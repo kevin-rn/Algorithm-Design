@@ -1,20 +1,16 @@
 You are organising a virtual boardgame event to interact with your peers in these interesting times.
-To that end all of your n
-
-participants need to do two tasks.
+To that end all of your n participants need to do two tasks.
 You need to talk to all of them individually to hear what board games they have experience with and they need to create an account.
 
-The times vary for different participants: let ai
-denote the required talking time to person 1≤i≤n.
+The times vary for different participants: let a_i denote the required talking time to person 1≤i≤n.
 However, before you can talk to them they also need to create an account at BoardgameArena, the platform you will be using.
-Since not all of participants are CSE students, some take a little longer than others to create this account; let bi be the time required for participant 1≤i≤n
-
-to create their account.
+Since not all of participants are CSE students, some take a little longer than others to create this account; let b_i be the time required for participant 1≤i≤n to create their account.
 
 Since everyone can create an account in parallel, but they all need to talk to you individually, you realise you can use a greedy algorithm to determine an optimal order that minimises the total time required to get everyone ready for the tournament.
 
 Implement the function boardgameTime which given the times described above, returns the time at which the last person will be ready to start the tournament using an optimal order of participants.
 
+##### Note: See alternative at bottom!
 
 ### Template
 ```java
@@ -131,4 +127,64 @@ class Tournament {
     }
   }
 }
+```
+______________________________________________________________________________________________________________________________________________
+You are organising a virtual boardgame event to interact with your peers in these interesting times.
+To that end all of your n participants need to create an account at BoardgameArena, the platform you will be using.
+Since not all of participants are CSE students, some take a little longer than others to create this account; let ai be the time required for participant 1≤i≤n to create their account.
+After they have created this account, you also need to talk to them to hear what board games they have experience with.
+It is important that happens after they created an account, as they need to look at the list of games available on the platform.
+Furthermore this time bi
+
+spent talking differs per person as some are more talkative than others.
+
+Since everyone can create an account in parallel, but they all need to talk to you individually, you realise you can use a greedy algorithm to determine an optimal order that minimises the total time required to get everyone ready for the tournament.
+
+Implement the function boardgameTime which given the times described above, returns the time at which the last person will be ready to start the tournament using an optimal order of participants.
+
+### Solution:
+```java
+import java.io.*;
+import java.util.*;
+
+/**
+ * WARNING: The spec tests are not necessarily equal to your grade!
+ * You can use them help you test for the correctness of your algorithm,
+ * but the final grade is determined by a manual inspection of your implementation.
+ */
+class Tournament {
+
+  /**
+   *  You should implement this method.
+   *  @param n the number of participants.
+   *  @param a an array of size n+1, containing the account creation a_1 through a_n. You should ignore a[0].
+   *  @param b an array of size n+1, containing the interview times b_1 through b_n. You should ignore b[0].
+   *  @return The minimum latest end time.
+   */
+  public static int boardgameTime(int n, int[] a, int[] b) {
+    Participant[] participants = new Participant[n];
+    for(int i = 1; i<=n; i++) participants[i-1] = new Participant(a[i], b[i]);
+    Arrays.sort(participants);
+    int result = 0;
+    for(Participant p : participants) {
+      result += (p.account > result) ? ((p.account - result) + p.interview) : p.interview;
+    }
+    return result;
+  }
+}
+
+class Participant implements Comparable<Participant> {
+  int account, interview;
+  
+  public Participant(int account, int interview) {
+    this.account = account;
+    this.interview = interview;
+  }
+  
+  @Override
+  public int compareTo(Participant other) {
+    return Integer.compare(this.account, other.account);
+  }
+}
+
 ```
