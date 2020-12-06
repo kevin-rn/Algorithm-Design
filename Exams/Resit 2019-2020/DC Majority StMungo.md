@@ -1,5 +1,3 @@
-#### NOTE: Not complete solution, misses an edge case
-
 You are an employee of St. Mungo’s, a hospital dealing with a large number of patients.
 Since your department is being overrun with cases, you want to figure out if there is an illness that should get your priority.
 
@@ -200,8 +198,8 @@ class StMungo {
       if(left != null && left.hasSameIllnesses(patients[i])) counterL++;
       if(right != null && right.hasSameIllnesses(patients[i])) counterR++;
     }
-    if(counterL > counterR && counterL > mid) return left;
-    else if(counterR > counterL && counterR > mid) return right;
+    if(counterL > counterR && counterL > (end-start+1)/2) return left;
+    else if(counterR > counterL && counterR > (end-start+1)/2) return right;
     else return null;
   }
 
