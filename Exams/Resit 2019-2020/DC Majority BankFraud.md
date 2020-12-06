@@ -1,3 +1,5 @@
+#### NOTE: Not complete solution, misses an edge case
+
 You are an employee of Gringotts working on fraud detection with bank cards.
 Since your department is just starting, you have first been asked to run the following security test:
 
