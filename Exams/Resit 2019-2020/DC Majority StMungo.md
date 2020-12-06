@@ -1,4 +1,4 @@
-#### NOTE: Not complete solution
+#### NOTE: Not complete solution, misses an edge case
 
 You are an employee of St. Mungo’s, a hospital dealing with a large number of patients.
 Since your department is being overrun with cases, you want to figure out if there is an illness that should get your priority.
