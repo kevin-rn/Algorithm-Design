@@ -225,7 +225,8 @@ The expected result is stored in a file with one row with the answer as a double
 ```
 ____________________________________________________________________________________________________________________
 
-``` Solution:
+### Solution:
+```java
 import java.util.*;
 
 class Solution {
