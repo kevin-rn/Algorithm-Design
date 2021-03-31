@@ -236,3 +236,26 @@ class Solution {
   }
 }
 ```
+
+### Alternative
+```java
+import java.util.*;
+
+class Solution {
+
+  public static int[] solve(int n, int[] s, int[] f, int[] v) {
+    // Find the predecessor for every job. If a job j has no predecessor then p[j] = -1
+    int[] p = new int[n + 1];
+    Arrays.fill(p, -1);
+    for (int i = 1; i <= n; i++) {
+      for (int j = 1; j < i; j++) {
+        // If job i starts after job j is finished, we know job j is its predecessor
+        if (s[i] >= f[j]) {
+          p[i] = j;
+        }
+      }
+    }
+    return p;
+  }
+}
+```
