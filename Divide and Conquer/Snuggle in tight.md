@@ -33,7 +33,7 @@ class Solution {
 ```
 
 ### Library:
-````java
+```java
 import java.util.*;
 
 /**
