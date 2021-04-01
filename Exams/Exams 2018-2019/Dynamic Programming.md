@@ -142,24 +142,6 @@ class DynamicProgramming {
     return mem[n];
   }
 
-  public static void main(String[] args) throws FileNotFoundException {
-    String dirName = "src/main/java/adweblab/exams/exam_2_2018_2019/dp/data/";
-    File dir = new File(dirName);
-    System.out.println(dir.exists());
-    for (File f : dir.listFiles()) {
-      if (f.getName().endsWith("in")) {
-        FileInputStream in = new FileInputStream(f);
-        System.out.println(f.getAbsolutePath());
-        String ans = run(in);
-        System.out.println(ans);
-        PrintWriter out = new PrintWriter(f.getAbsolutePath().replace(".in", ".out"));
-        out.println(ans);
-        out.close();
-        System.out.println();
-      }
-    }
-  }
-
   public static String run(InputStream in) {
     Scanner sc = new Scanner(in);
     int m = sc.nextInt();
